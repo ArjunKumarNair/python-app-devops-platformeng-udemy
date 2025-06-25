@@ -9,8 +9,6 @@ on:
 
 jobs:
   ci:
-    outputs:
-      commit_id: ${{env.COMMIT_ID}}
     runs-on: ubuntu-latest
     steps:
 
@@ -32,6 +30,8 @@ jobs:
         with:
           push: true
           tags: arjun150800/python-app:${{ env.COMMIT_ID }}
+    outputs:
+      commit_id: ${{env.COMMIT_ID}}
 
   cd:
     needs: ci
