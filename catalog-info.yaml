@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: python-app
+  description: Python app that displays time.
+  annotations:
+    github.com/project-slug: ArjunKumarNair/python-app-devops-platformeng-udemy
+spec:
+  type: website
+  owner: development
+  lifecycle: experimental
