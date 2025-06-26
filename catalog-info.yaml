@@ -5,6 +5,7 @@ metadata:
   description: Python app that displays time.
   annotations:
     github.com/project-slug: ArjunKumarNair/python-app-devops-platformeng-udemy
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: website
   owner: development
