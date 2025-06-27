@@ -7,6 +7,6 @@ metadata:
     github.com/project-slug: ArjunKumarNair/python-app-devops-platformeng-udemy
     backstage.io/techdocs-ref: dir:.
 spec:
-  type: website
+  type: service
   owner: development
   lifecycle: experimental
