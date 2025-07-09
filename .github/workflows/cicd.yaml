@@ -52,23 +52,16 @@ jobs:
         with:
           message: 'Updates values.yaml with commit ${{needs.ci.outputs.commit_id}}'
 
-      - 
-        name: Install argocd
-        shell: powershell
+      -
+        name: Set up Kubeconfig
         run: |
-          $version = (Invoke-RestMethod https://api.github.com/repos/argoproj/argo-cd/releases/latest).tag_name
-          $url = "https://github.com/argoproj/argo-cd/releases/download/" + $version + "/argocd-windows-amd64.exe"
-          $output = "argocd.exe"
-          Invoke-WebRequest -Uri $url -OutFile $output
-          [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Path\To\ArgoCD-CLI", "User")
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
       - 
-        name: Argocd app sync
-        shell: powershell
+        name: Deploy with Helm
         run: |
-          argocd login argocd-server.argocd \
-            --insecure\
-            --grpc-web\
-            --username admin \
-            --password ${{ secrets.ARGOCD_PASSWORD }}
-          argocd app sync python-app
+          helm upgrade --install python-app ./charts/python-app \
+          --namespace python-app \
+          --create-namespace \
+          --set image.tag=${{ needs.ci.outputs.commit_id }}
