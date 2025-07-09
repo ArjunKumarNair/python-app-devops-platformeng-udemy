@@ -56,9 +56,10 @@ jobs:
         name: Install argocd
         shell: powershell
         run: |
-          curl -ksSL -o argocd https://argocd-server.argocd/download/argocd-linux-amd64
-          chmod +x argocd
-          sudo mv ./argocd /usr/local/bin/argocd
+          Invoke-WebRequest -Uri https://argocd-server.argocd/download/argocd-linux-amd64 -OutFile argocd
+          icacls argocd /grant Everyone:RX
+          Move-Item -Path .\argocd -Destination "C:\Program Files\argocd.exe"
+
       - 
         name: Argocd app sync
         shell: powershell
